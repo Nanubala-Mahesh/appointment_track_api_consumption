@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 	def sign_up
 		if request.post?
 			if params[:email] && params[:password]
-				@user = HTTParty.post("http://localhost:3000/users/", body: {user: {email: params[:email], password: params[:password], password_confirmation: params[:password]}})	
+				@user = HTTParty.post("https://safe-sierra-38835.herokuapp.com/users/", body: {user: {email: params[:email], password: params[:password], password_confirmation: params[:password]}})	
 				# binding.pry
 				@user = JSON.parse(@user.body)
 
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 	def sign_in
 		if request.post?
 			if params[:email] && params[:password]
-				@user = HTTParty.post("http://localhost:3000/users/sign_in", body: {email: params[:email], password: params[:password], password_confirmation: params[:password]})	
+				@user = HTTParty.post("https://safe-sierra-38835.herokuapp.com/users/sign_in", body: {email: params[:email], password: params[:password], password_confirmation: params[:password]})	
 				# binding.pry
 				@user = JSON.parse(@user.body)
 
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
 	end
 
 	def logout
-		@user = HTTParty.patch("http://localhost:3000/users/sign_in", body: {acess_token: params[:acess_token]})
+		@user = HTTParty.patch("https://safe-sierra-38835.herokuapp.com/users/sign_in", body: {acess_token: params[:acess_token]})
 		redirect_to sessions_sign_in_path
 	end
 
