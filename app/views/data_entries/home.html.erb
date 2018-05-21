@@ -1,0 +1,96 @@
+<style type="text/css">
+	.box{
+		border: 1px solid white;
+		height: 390px;
+		text-align: center;
+	}
+
+	.bg-for-2{
+		background-color: #eeedec;
+	}
+	.button{
+		background-color: #ff5722;
+		border: none;
+		border-radius: 10px;
+		height: 30px;
+		width: 150px;
+		margin-top: 50px;
+		color: white;
+	}
+
+	h2{
+		font-weight: bold;
+		color: #0404ea;
+	}
+
+	hr{
+		width: 30%;
+	    border-top: 2px solid #d0cccc;
+	}
+
+	.form-control{
+		width: 30%;
+		margin-left: 35%
+	}
+	.logout{
+		color: #fff;
+	    background-color: #4e69f0;
+	    border-color: #3a68ea;
+	}
+</style>
+
+
+<div class="">
+	<%= link_to 'Logout', sessions_logout_path(:acess_token => params[:acess_token]), method: 'post', :class => "btn btn-warning logout" %>
+	<div class="container col-xs-12 col-sm-6 box bg-for-2">
+		<h2>Patient</h2>
+		<hr>
+		<% acess_token = params[:acess_token] %>
+		
+		<%= form_tag(create_patient_path, method: :post) do %>
+			
+			<%= text_field_tag 'name', params[:name], placeholder: "Name", class: "form-control" %> <br/>
+			<%= text_field_tag 'phone_number', params[:phone_number], placeholder: "Phone Number", class: "form-control" %> <br/>
+			<%= hidden_field_tag 'acess_token', value = params[:acess_token] %>
+			<%= submit_tag "Submit", class:  "button" %>
+		<% end %>
+	</div>
+
+	<div class="container col-xs-12 col-sm-6 box">
+		<h2>Doctor</h2>
+		<hr>
+		<%= form_tag(create_doctor_path, method: :post) do %>
+			
+			<%= text_field_tag 'name', params[:name], placeholder: "Name", class: "form-control" %> <br/>
+			<%= text_field_tag 'phone_number', params[:phone_number], placeholder: "Phone Number", class: "form-control" %> <br/>
+			<%= text_field_tag 'specialization', params[:specialization], placeholder: "Specialization", class: "form-control" %> <br/>
+			<%= hidden_field_tag 'acess_token', value = params[:acess_token] %>
+			<%= submit_tag "Submit", class:  "button" %>
+		<% end %>
+	</div>
+
+	<div class="container col-xs-12 col-sm-6 box">
+		<h2>Appointment</h2>
+		<hr>
+		<%= form_tag(create_appointment_path, method: :post) do %>
+			<%# binding.pry %>
+			<%= select_tag "doctor_id", options_for_select(@doctors['data'].collect {|doctor| [doctor["name"], doctor["id"]]}), prompt: "Select Doctor", class: "form-control" %> 
+			
+			<br/>
+
+			<%= select_tag "patient_id", options_for_select(@patients['data'].collect {|patient| [patient["name"], patient["id"]]}), prompt: "Select Patient", class: "form-control" %> <br/>
+			
+			<%= text_field_tag 'diseases', params[:diseases], placeholder: "Diseases", class: "form-control" %> <br/>
+
+			<%= hidden_field_tag 'acess_token', value = params[:acess_token] %>
+
+			<%= submit_tag "Submit", class:  "button" %>
+		<% end %>
+	</div>
+
+	<div class="container col-xs-12 col-sm-6 box bg-for-2">
+		<h2>View Appointment</h2>
+		<hr>
+		<%=  render :template => "data_entries/show_appointments" %>
+	<div>
+</div>

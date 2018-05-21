@@ -1,0 +1,50 @@
+<style type="text/css">
+	
+	table{
+		border-collapse: separate;
+    border-spacing: 0 0.5em;
+	}
+
+	tr th {
+	    border-right: 2px solid white;
+	}
+	td{
+
+	}
+	th{
+		background: blue;
+		color: white;
+		text-align: center;
+	}
+
+	tbody tr{
+		background: white;
+		padding-top: .5em;
+    padding-bottom: .5em;
+	}
+</style>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>Doctor Name</th>
+      <th>Diseases</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	<%# binding.pry %>
+  	<%if @appointments.present? %>
+	    <% @appointments["data"].each do |appointment| %>
+	      <tr>
+	        <td><%= appointment["patient"] %></td>
+	        <td><%= appointment["doctor"] %></td>
+	        <td><%= appointment["diseases"] %></td>
+	      </tr>
+	    <% end %>
+	<% end %>
+  </tbody>
+</table>

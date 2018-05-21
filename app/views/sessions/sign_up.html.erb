@@ -1,0 +1,33 @@
+<style type="text/css">
+	.button{
+		    border: none;
+    width: 70%;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: blue;
+    color: white;
+	}
+	.login-text{
+		text-align: center;
+		margin-right: 30%
+	}
+
+	.form-control{
+		width: 70%
+	}
+
+</style>
+
+<div class="container">
+	<div class="login-text">
+		<h2><span><%= link_to 'Login', sessions_sign_in_path %></span> or SignUp </h2>
+	</div>
+	<hr>
+	<%= form_tag(sessions_sign_up_path, method: :post) do %>
+		
+		<%= text_field_tag 'email', params[:email], placeholder: "email", class: "form-control" %> <br/>
+		<%= text_field_tag 'password', params[:password], placeholder: "password", class: "form-control" %> <br/>
+
+		<%= submit_tag "Signup", class:  "button" %>
+	<% end %>
+</div>
